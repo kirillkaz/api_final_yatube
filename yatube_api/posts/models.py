@@ -5,7 +5,8 @@ User = get_user_model()
 
 
 class Follow(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="follower")
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             related_name="follower")
     following = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="following"
     )
@@ -16,7 +17,8 @@ class Follow(models.Model):
                 fields=("user", "following"), name="unique_following"
             ),
             models.CheckConstraint(
-                check=~models.Q(user=models.F("following")), name="self_following"
+                check=~models.Q(user=models.F("following")),
+                name="self_following"
             ),
         ]
 

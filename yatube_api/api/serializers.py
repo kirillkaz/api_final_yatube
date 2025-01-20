@@ -15,10 +15,13 @@ class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         read_only=True, slug_field='username'
     )
-    post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all(), required=False)
+    post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all(),
+                                              required=False)
+
     class Meta:
         fields = ('id', 'author', 'post', 'text', 'created')
         model = Comment
+
 
 class PostSerializer(serializers.ModelSerializer):
     comment = CommentSerializer(many=True, required=False)
